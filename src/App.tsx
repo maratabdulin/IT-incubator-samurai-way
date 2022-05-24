@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
 import Header from "./components/header/Header";
-import Technology from "./components/technology/Technology";
-import Footer from "./components/footer/Footer";
+import Main from "./components/main/Main";
+import Sidebar from "./components/sidebar/Sidebar";
 
 function App() {
     return (
-        <div>
-            <Header/>
-            <Technology/>
-            <Footer/>
+        <div className='app-wrapper'>
+            <Header className='header'/>
+            <Sidebar className='sidebar'/>
+            <Main className='main'/>
         </div>
     );
 }

@@ -1,12 +1,16 @@
 import React from "react";
 
-const Header = () => {
+
+type HeaderType = {
+    className: string;
+}
+
+
+const Header = (props: HeaderType) => {
     return (
-        <div>
-            <a href="#">Home</a>
-            <a href="#">News feed</a>
-            <a href="#">Messages</a>
-        </div>
+        <header className={props.className}>
+            <img src='https://global-uploads.webflow.com/5e157547d6f791d34ea4e2bf/6087f2b060c7a92408bac811_logo.svg' alt='logo'/>
+        </header>
     )
 }
 
