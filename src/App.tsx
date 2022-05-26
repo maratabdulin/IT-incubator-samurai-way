@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
 import Header from "./components/header/Header";
-import Main from "./components/main/Main";
-import Sidebar from "./components/sidebar/Sidebar";
+import Profile from "./components/profile/Profile";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
     return (
         <div className='app-wrapper'>
             <Header className='header'/>
-            <Sidebar className='sidebar'/>
-            <Main className='main'/>
+            <Navbar className='navbar'/>
+            <Profile className='profile'/>
         </div>
     );
 }

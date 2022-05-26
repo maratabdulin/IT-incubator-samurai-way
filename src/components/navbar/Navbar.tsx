@@ -1,11 +1,11 @@
 import React from "react";
+import './styles.module.css';
 
-type SidebarType = {
+type NavbarType = {
     className: string;
 }
 
-
-const Sidebar = (props: SidebarType) => {
+const Navbar: React.VFC<NavbarType> = (props) => {
     return (
         <nav className={props.className}>
             <ul>
@@ -17,4 +17,4 @@ const Sidebar = (props: SidebarType) => {
     )
 }
 
-export default Sidebar;
+export default Navbar;

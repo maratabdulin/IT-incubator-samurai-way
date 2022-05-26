@@ -1,11 +1,12 @@
 import React from "react";
+import './styles.css';
+import MyPosts from "../posts/MyPosts";
 
-type MainType = {
+type ProfileType = {
     className: string;
 }
 
-
-const Main = (props: MainType) => {
+const Profile: React.FC<ProfileType> = (props) => {
     return (
         <div className={props.className}>
             <div>
@@ -14,16 +15,9 @@ const Main = (props: MainType) => {
             <div>
                 ava + description
             </div>
-            <div>
-                My posts
-                <div>
-                    new post
-                    <div>post 1</div>
-                    <div>post 2</div>
-                </div>
-            </div>
+            <MyPosts/>
         </div>
     )
 }
 
-export default Main;
+export default Profile;
