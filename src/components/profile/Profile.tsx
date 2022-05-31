@@ -1,19 +1,12 @@
 import React from "react";
 import s from './styles.module.css';
-import MyPosts from "../posts/MyPosts";
+import MyPosts from "./myPosts/MyPosts";
+import ProfileInfo from "./profileInfo/profileInfo";
 
 const Profile = () => {
     return (
-        <div>
-            <div>
-                <img className={s.image}
-                     src="https://cdn.statically.io/img/codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg"
-                     alt="image"
-                />
-            </div>
-            <div>
-                ava + description
-            </div>
+        <div className={s.profile}>
+            <ProfileInfo/>
             <MyPosts/>
         </div>
     )
