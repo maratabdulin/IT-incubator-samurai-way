@@ -4,10 +4,10 @@ import Header from "./components/header/Header";
 import Profile from "./components/profile/Profile";
 import Navbar from "./components/navbar/Navbar";
 import Dialogs from "./components/dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/news/news";
 import Setting from "./components/setting/setting";
 import Music from "./components/music/music";
+import {BrowserRouter, Route} from "react-router-dom";
 
 function App() {
     return (
