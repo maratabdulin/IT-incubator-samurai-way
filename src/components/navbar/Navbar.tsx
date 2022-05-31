@@ -1,17 +1,25 @@
 import React from "react";
-import './styles.module.css';
+import s from './styles.module.css';
 
-type NavbarType = {
-    className: string;
-}
-
-const Navbar: React.VFC<NavbarType> = (props) => {
+const Navbar = () => {
     return (
-        <nav className={props.className}>
+        <nav className={s.navbar}>
             <ul>
-                <li>Profile</li>
-                <li>Messages</li>
-                <li>News</li>
+                <li>
+                    <a href='/profile'>Profile</a>
+                </li>
+                <li>
+                    <a href='/dialogs'>Dialogs</a>
+                </li>
+                <li>
+                    <a href='/news'>News</a>
+                </li>
+                <li>
+                    <a href='/setting'>Settings</a>
+                </li>
+                <li>
+                    <a href='/music'>Music</a>
+                </li>
             </ul>
         </nav>
     )

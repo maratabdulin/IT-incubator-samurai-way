@@ -1,16 +1,15 @@
 import React from "react";
-import './styles.css';
+import s from './styles.module.css';
 import MyPosts from "../posts/MyPosts";
 
-type ProfileType = {
-    className: string;
-}
-
-const Profile: React.FC<ProfileType> = (props) => {
+const Profile = () => {
     return (
-        <div className={props.className}>
+        <div>
             <div>
-                <img src="https://cdn.statically.io/img/codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg?f=webp&w=1440" alt="image"/>
+                <img className={s.image}
+                     src="https://cdn.statically.io/img/codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg"
+                     alt="image"
+                />
             </div>
             <div>
                 ava + description
