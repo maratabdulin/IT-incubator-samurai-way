@@ -1,17 +1,15 @@
 import React from 'react';
 import s from './styles.module.css';
 import Post from "../post/Post";
-import {v1} from "uuid";
+import {PostType} from "../../../index";
 
-const MyPosts = (props: any) => {
+type MyPostsPropsType = {
+    posts: Array<PostType>
+}
 
-    let posts = [
-        {id: v1(), post: 'hi how are you?', likesCount: 0},
-        {id: v1(), post: 'It\' s my first post', likesCount: 23},
-    ]
-
+const MyPosts: React.FC<MyPostsPropsType> = ({posts}) => {
     let postsElements = posts
-        .map((p) => <Post post={p.post} likesCount={p.likesCount} key={p.id}/>);
+        .map((p: PostType) => <Post post={p.post} likesCount={p.likesCount} id={p.id}/>);
 
     return (
         <div className={s.postsBlock}>
