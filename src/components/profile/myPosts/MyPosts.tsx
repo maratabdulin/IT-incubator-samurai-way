@@ -5,10 +5,13 @@ import {v1} from "uuid";
 
 const MyPosts = (props: any) => {
 
-    let postsData = [
+    let posts = [
         {id: v1(), post: 'hi how are you?', likesCount: 0},
         {id: v1(), post: 'It\' s my first post', likesCount: 23},
     ]
+
+    let postsElements = posts
+        .map((p) => <Post post={p.post} likesCount={p.likesCount} key={p.id}/>);
 
     return (
         <div className={s.postsBlock}>
@@ -20,8 +23,7 @@ const MyPosts = (props: any) => {
                 <button>Add Post</button>
             </div>
             <div className={s.posts}>
-                <Post post={postsData[0].post} likesCount={postsData[0].likesCount} key={postsData[0].id}/>
-                <Post post={postsData[1].post} likesCount={postsData[1].likesCount} key={postsData[1].id}/>
+                {postsElements}
             </div>
         </div>
     );
