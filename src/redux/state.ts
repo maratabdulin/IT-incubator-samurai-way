@@ -31,6 +31,7 @@ let rerenderEntireTree = (state: StateType) => {
     console.log('state is changed');
 }
 
+
 const state: StateType = {
     profilePage: {
         posts: [
