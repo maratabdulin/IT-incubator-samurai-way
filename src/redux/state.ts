@@ -25,58 +25,79 @@ export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: MessagePageType
 }
-type SubscribeType = (state: StateType) => void
-
-let rerenderEntireTree = (state: StateType) => {
-    console.log('state is changed');
+export type StoreType = {
+    _state: StateType
+    _callSubscriber: () => void
+    getState: () => StateType
+    subscribe: (callback: () => void) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
-
-const state: StateType = {
-    profilePage: {
-        posts: [
-            {id: v1(), post: 'hi how are you?', likesCount: 0},
-            {id: v1(), post: 'It\' s my first post', likesCount: 23},
-        ],
-        newPostText: 'it-MassTransit',
-    },
-    dialogsPage: {
-        dialogs: [
-            {id: v1(), name: 'Marat'},
-            {id: v1(), name: 'Dima'},
-            {id: v1(), name: 'Victor'},
-            {id: v1(), name: 'Valery'},
-            {id: v1(), name: 'Sveta'},
-            {id: v1(), name: 'Natasha'},
-        ],
-        messages: [
-            {id: v1(), message: 'Hi'},
-            {id: v1(), message: 'How is your date?'},
-            {id: v1(), message: 'Yo!'},
-            {id: v1(), message: 'Hello!'},
-            {id: v1(), message: 'How are you?'},
-        ],
-    },
+type AddPostActionType = {
+    type: 'ADD-POST'
+    newPostText: string
 }
 
-export const addPost = () => {
-    let newPost: PostType = {
-        id: v1(),
-        post: state.profilePage.newPostText,
-        likesCount: 0,
+type UpdateNewPostTextType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextType
+
+const store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: v1(), post: 'hi how are you?', likesCount: 0},
+                {id: v1(), post: 'It\' s my first post', likesCount: 23},
+            ],
+            newPostText: 'it-MassTransit',
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: v1(), name: 'Marat'},
+                {id: v1(), name: 'Dima'},
+                {id: v1(), name: 'Victor'},
+                {id: v1(), name: 'Valery'},
+                {id: v1(), name: 'Sveta'},
+                {id: v1(), name: 'Natasha'},
+            ],
+            messages: [
+                {id: v1(), message: 'Hi'},
+                {id: v1(), message: 'How is your date?'},
+                {id: v1(), message: 'Yo!'},
+                {id: v1(), message: 'Hello!'},
+                {id: v1(), message: 'How are you?'},
+            ],
+        },
+    },
+    _callSubscriber() {
+        console.log('state is changed');
+    },
+
+    getState() {
+        return this._state
+    },
+    subscribe(callback) {
+        this._callSubscriber = callback;
+    },
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost: PostType = {
+                id: v1(),
+                post: this._state.profilePage.newPostText,
+                likesCount: 0,
+            }
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber();
+        }
     }
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = '';
-    rerenderEntireTree(state);
 }
 
-export const updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText = newText;
-    rerenderEntireTree(state);
-}
-
-export const subscribe = (observer: SubscribeType) => {
-    rerenderEntireTree = observer;
-}
-
-export default state;
+export default store;
