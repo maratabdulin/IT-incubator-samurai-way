@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import profileReducer, {AddPostActionType, UpdateNewPostTextType} from "./profile-reducer";
+import dialogsReducer, {AddMessageActionType, UpdateNewMessageActionType} from "./dialogs-reducer";
 
 export type PostType = {
     post: string
@@ -34,24 +36,7 @@ export type StoreType = {
     dispatch: (action: ActionsTypes) => void
 }
 
-type AddPostActionType = ReturnType<typeof addPostAC>
-type UpdateNewPostTextType = ReturnType<typeof updateNewPostAC>
-type AddMessageActionType = ReturnType<typeof addMessageAC>
-type UpdateNewMessageActionType = ReturnType<typeof updateNewMessageAC>
-
 export type ActionsTypes = AddPostActionType | UpdateNewPostTextType | AddMessageActionType | UpdateNewMessageActionType
-
-export const addPostAC = (newPostText: string) =>
-    ({type: "ADD-POST", newPostText}) as const
-
-export const updateNewPostAC = (newText: string) =>
-    ({type: "UPDATE-NEW-POST-TEXT", newText}) as const
-
-export const addMessageAC = (newMessageText: string) =>
-    ({type: "ADD-MESSAGE", newMessageText}) as const
-
-export const updateNewMessageAC = (newMessage: string) =>
-    ({type: "UPDATE-NEW-MESSAGE-TEXT", newMessage}) as const
 
 const store: StoreType = {
     _state: {
@@ -93,30 +78,9 @@ const store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost: PostType = {
-                id: v1(),
-                post: this._state.profilePage.newPostText,
-                likesCount: 0,
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber();
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber();
-        } else if (action.type === 'ADD-MESSAGE') {
-            let newMessage: MessageType = {
-                id: v1(),
-                message: this._state.dialogsPage.newMessageText
-            }
-            this._state.dialogsPage.messages.push(newMessage);
-            this._state.dialogsPage.newMessageText = '';
-            this._callSubscriber();
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-            this._state.dialogsPage.newMessageText = action.newMessage;
-            this._callSubscriber();
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._callSubscriber();
     }
 }
 
