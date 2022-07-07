@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './style.module.css'
-import {MessageType} from "../../../redux/state";
+import {MessageType} from "../../../redux/store";
 
 const Message:React.FC<MessageType> = ({message}) => {
     return (

@@ -1881,7 +1881,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-redux@^7.1.20", "@types/react-redux@7.1.22":
+"@types/react-redux@^7.1.20", "@types/react-redux@^7.1.22":
   "integrity" "sha512-GxIA1kM7ClU73I6wg9IRTVwSO9GS+SAKZKe0Enj+82HMU6aoESFU2HNAdNi3+J53IaOHPiUfT3kSG4L828joDQ=="
   "resolved" "https://registry.npmjs.org/@types/react-redux/-/react-redux-7.1.22.tgz"
   "version" "7.1.22"
@@ -8060,7 +8060,7 @@
   "resolved" "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.1.tgz"
   "version" "2.4.1"
 
-"redux@^3.6.0 || ^4.0.0", "redux@^3.7.2 || ^4.0.0", "redux@^4", "redux@^4.0.0", "redux@4.1.2":
+"redux@^3.6.0 || ^4.0.0", "redux@^3.7.2 || ^4.0.0", "redux@^4", "redux@^4.0.0", "redux@^4.1.2":
   "integrity" "sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw=="
   "resolved" "https://registry.npmjs.org/redux/-/redux-4.1.2.tgz"
   "version" "4.1.2"

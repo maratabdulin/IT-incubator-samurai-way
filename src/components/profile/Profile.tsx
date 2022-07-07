@@ -2,7 +2,7 @@ import React from "react";
 import s from './styles.module.css';
 import MyPosts from "./myPosts/MyPosts";
 import ProfileInfo from "./profileInfo/profileInfo";
-import {ActionsTypes, ProfilePageType} from "../../redux/state";
+import {ActionsTypes, ProfilePageType} from "../../redux/store";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
