@@ -2,28 +2,26 @@ import React, {ChangeEvent} from 'react';
 import s from './style.module.css'
 import Message from "./message/Message";
 import DialogItem from "./dialogItem/DialogItem";
-import {ActionsTypes, DialogType, MessageType} from "../../redux/store";
-import {addMessageAC, updateNewMessageAC} from "../../redux/dialogs-reducer";
+import {DialogType, MessageType} from "../../redux/redux-store";
 
 type DialogsPropsType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
-    dispatch: (action: ActionsTypes) => void
     newMessageText: string
+    addMessage: (message: string) => void
+    updateNewMessageText: (message: string) => void
 }
 
-const Dialogs: React.FC<DialogsPropsType> = ({dialogs, messages, newMessageText, dispatch}) => {
-    let dialogsElements = dialogs.map((d: DialogType) => <DialogItem name={d.name} id={d.id}/>);
+const Dialogs: React.FC<DialogsPropsType> = (props) => {
+    let dialogsElements = props.dialogs.map((d: DialogType) => <DialogItem name={d.name} id={d.id}/>);
 
-    let messageElements = messages.map((m: MessageType) => <Message message={m.message} id={m.id}/>);
+    let messageElements = props.messages.map((m: MessageType) => <Message message={m.message} id={m.id}/>);
 
-    const addMessage = () => {
-        dispatch(addMessageAC(newMessageText))
-    }
+    const addMessage = () => props.addMessage(props.newMessageText);
 
     let onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let message = e.currentTarget.value;
-        message && dispatch(updateNewMessageAC(message));
+        props.updateNewMessageText(message)
     }
 
     return (
@@ -35,12 +33,11 @@ const Dialogs: React.FC<DialogsPropsType> = ({dialogs, messages, newMessageText,
                 {messageElements}
                 <div className={s.addMessage}>
                     <div>
-                        <textarea value={newMessageText} onChange={onMessageChange}/>
+                        <textarea value={props.newMessageText} onChange={onMessageChange}/>
                     </div>
                     <button onClick={addMessage}>Add Post</button>
                 </div>
             </div>
-
         </div>
     );
 };

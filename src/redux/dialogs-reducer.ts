@@ -1,4 +1,4 @@
-import {ActionsTypes, MessagePageType, MessageType} from "./store";
+import {ActionsTypes, MessagePageType, MessageType} from "./redux-store";
 import {v1} from "uuid";
 
 let initialState: MessagePageType = {

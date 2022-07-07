@@ -1,4 +1,4 @@
-import {ActionsTypes, PostType, ProfilePageType} from "./store";
+import {ActionsTypes, PostType, ProfilePageType} from "./redux-store";
 import {v1} from "uuid";
 
 let initialState: ProfilePageType = {

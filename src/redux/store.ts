@@ -2,41 +2,40 @@ import {v1} from "uuid";
 import profileReducer, {AddPostActionType, UpdateNewPostTextType} from "./profile-reducer";
 import dialogsReducer, {AddMessageActionType, UpdateNewMessageActionType} from "./dialogs-reducer";
 
-export type PostType = {
+type PostType = {
     post: string
     likesCount: number
     id: string
 };
-export type MessageType = {
+type MessageType = {
     message: string
     id: string
 }
-export type DialogType = {
+type DialogType = {
     name: string
     id: string
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
 }
-export type MessagePageType = {
+type MessagePageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     newMessageText: string
 }
-export type StateType = {
+type StateType = {
     profilePage: ProfilePageType
     dialogsPage: MessagePageType
 }
-export type StoreType = {
+type StoreType = {
     _state: StateType
     _callSubscriber: () => void
     getState: () => StateType
     subscribe: (callback: () => void) => void
     dispatch: (action: ActionsTypes) => void
 }
-
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextType | AddMessageActionType | UpdateNewMessageActionType
+type ActionsTypes = AddPostActionType | UpdateNewPostTextType | AddMessageActionType | UpdateNewMessageActionType
 
 const store: StoreType = {
     _state: {
