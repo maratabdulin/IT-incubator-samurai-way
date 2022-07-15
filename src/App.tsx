@@ -7,23 +7,23 @@ import News from "./components/news/news";
 import Setting from "./components/setting/setting";
 import Music from "./components/music/music";
 import {BrowserRouter, Route} from "react-router-dom";
-import {StoreType} from "./redux/redux-store";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 
-type AppPropsType = {
-    store: StoreType
-}
+// import {StoreType} from "./redux/redux-store";
+// type AppPropsType = {
+//     store: StoreType
+// }
+// const App: React.FC<AppPropsType> = (props) => {
 
-const App: React.FC<AppPropsType> = (props) => {
-
+const App = () => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <DialogsContainer store={props.store}/>}/>
-                    <Route path='/profile' render={() => <Profile store={props.store}/>}/>
+                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                    <Route path='/profile' render={() => <Profile/>}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/setting' render={() => <Setting/>}/>
                     <Route path='/music' render={() => <Music/>}/>
@@ -32,5 +32,6 @@ const App: React.FC<AppPropsType> = (props) => {
         </BrowserRouter>
     );
 }
+
 
 export default App;

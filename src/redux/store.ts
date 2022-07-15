@@ -68,14 +68,12 @@ const store: StoreType = {
     _callSubscriber() {
         console.log('state is changed');
     },
-
     getState() {
         return this._state
     },
     subscribe(callback) {
         this._callSubscriber = callback;
     },
-
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);

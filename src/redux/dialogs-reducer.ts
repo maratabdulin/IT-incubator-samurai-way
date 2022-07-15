@@ -1,5 +1,19 @@
-import {ActionsTypes, MessagePageType, MessageType} from "./redux-store";
+import {ActionsTypes} from "./redux-store";
 import {v1} from "uuid";
+
+export type MessageType = {
+    message: string
+    id: string
+}
+export type DialogType = {
+    name: string
+    id: string
+}
+export type MessagePageType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    newMessageText: string
+}
 
 let initialState: MessagePageType = {
     dialogs: [
@@ -20,7 +34,7 @@ let initialState: MessagePageType = {
     newMessageText: 'Hi, how are you?'
 }
 
-const dialogsReducer = (state: MessagePageType = initialState, action: ActionsTypes) => {
+const dialogsReducer = (state: MessagePageType = initialState, action: ActionsTypes): MessagePageType => {
 
     switch (action.type) {
         case 'ADD-MESSAGE':
@@ -47,6 +61,5 @@ export const addMessageAC = (newMessageText: string) =>
 
 export const updateNewMessageAC = (newMessage: string) =>
     ({type: "UPDATE-NEW-MESSAGE-TEXT", newMessage}) as const
-
 
 export default dialogsReducer;

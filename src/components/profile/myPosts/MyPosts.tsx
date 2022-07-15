@@ -1,14 +1,8 @@
 import React from 'react';
 import s from './styles.module.css';
 import Post from "../post/Post";
-import {PostType} from "../../../redux/redux-store";
-
-type MyPostsPropsType = {
-    posts: Array<PostType>
-    newPostText: string
-    updateNewPostText: (text: string) => void
-    addPost: () => void
-}
+import {PostType} from "../../../redux/profile-reducer";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let postsElements = props.posts
@@ -17,7 +11,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const onAddPost = () => {
-        props.addPost()
+        props.addPost();
     }
 
     let onPostChange = () => {
