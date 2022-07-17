@@ -6,9 +6,9 @@ import {DialogType, MessageType} from "../../redux/dialogs-reducer";
 import {DialogsPropsType} from "./DialogsContainer";
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
-    let dialogsElements = props.dialogsPage.dialogs.map((d: DialogType) => <DialogItem name={d.name} id={d.id}/>);
+    let dialogsElements = props.dialogsPage.dialogs.map((d: DialogType) => <DialogItem name={d.name} id={d.id} key={d.id}/>);
 
-    let messageElements = props.dialogsPage.messages.map((m: MessageType) => <Message message={m.message} id={m.id}/>);
+    let messageElements = props.dialogsPage.messages.map((m: MessageType) => <Message message={m.message} id={m.id} key={m.id}/>);
 
     const addMessage = () => props.addMessage(props.dialogsPage.newMessageText);
 
