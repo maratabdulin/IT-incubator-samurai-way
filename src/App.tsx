@@ -8,12 +8,7 @@ import Setting from "./components/setting/setting";
 import Music from "./components/music/music";
 import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
-
-// import {StoreType} from "./redux/redux-store";
-// type AppPropsType = {
-//     store: StoreType
-// }
-// const App: React.FC<AppPropsType> = (props) => {
+import UsersContainer from "./components/users/UsersContainer";
 
 const App = () => {
     return (
@@ -24,6 +19,7 @@ const App = () => {
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                     <Route path='/profile' render={() => <Profile/>}/>
+                    <Route path='/users' render={() => <UsersContainer/>}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/setting' render={() => <Setting/>}/>
                     <Route path='/music' render={() => <Music/>}/>

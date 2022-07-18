@@ -1,29 +1,24 @@
 import {combineReducers, createStore} from "redux";
-import profileReducer, {AddPostActionType, UpdateNewPostTextType} from "./profile-reducer";
+import profileReducer, {AddPostActionType, UpdateNewPostTextActionType} from "./profile-reducer";
 import dialogsReducer, {AddMessageActionType, UpdateNewMessageActionType} from "./dialogs-reducer";
+import usersReducer, {FollowActionType, SetUsersActionType, UnfollowActionType} from "./users-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
-// export type StateType = {
-//     profilePage: ProfilePageType
-//     dialogsPage: MessagePageType
-// }
-// export type StoreType = {
-//     _state: StateType
-//     _callSubscriber: () => void
-//     getState: () => StateType
-//     subscribe: (callback: () => void) => void
-//     dispatch: (action: ActionsTypes) => void
-// }
-
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextType | AddMessageActionType | UpdateNewMessageActionType
+export type ActionsTypes =
+    AddPostActionType |
+    UpdateNewPostTextActionType |
+    AddMessageActionType |
+    UpdateNewMessageActionType |
+    FollowActionType |
+    UnfollowActionType |
+    SetUsersActionType
 
 export let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
+    usersPage: usersReducer,
     sidebarPage: sidebarReducer,
 })
-
-
 
 
 export const store = createStore(rootReducer);

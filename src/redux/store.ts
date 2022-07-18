@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import profileReducer, {AddPostActionType, UpdateNewPostTextType} from "./profile-reducer";
+import profileReducer, {AddPostActionType, UpdateNewPostTextActionType} from "./profile-reducer";
 import dialogsReducer, {AddMessageActionType, UpdateNewMessageActionType} from "./dialogs-reducer";
 
 type PostType = {
@@ -35,7 +35,7 @@ type StoreType = {
     subscribe: (callback: () => void) => void
     dispatch: (action: ActionsTypes) => void
 }
-type ActionsTypes = AddPostActionType | UpdateNewPostTextType | AddMessageActionType | UpdateNewMessageActionType
+type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewMessageActionType
 
 const store: StoreType = {
     _state: {
