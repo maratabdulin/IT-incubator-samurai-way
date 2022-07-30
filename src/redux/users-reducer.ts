@@ -1,4 +1,4 @@
-import {ActionsTypes} from "./redux-store";
+import {ActionsTypes} from './redux-store';
 
 export type UserType = {
     id: number
@@ -8,67 +8,48 @@ export type UserType = {
     status?: string
     followed: boolean
 }
-
 export type UsersPageType = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
+export type FollowActionType = ReturnType<typeof followAC>
+export type UnfollowActionType = ReturnType<typeof unfollowAC>
+export type SetUsersActionType = ReturnType<typeof setUsersAC>
+export type SetUsersCurrentPageType = ReturnType<typeof setUsersCurrentPageAC>
+export type SetUsersTotalCountType = ReturnType<typeof setUsersTotalCountAC>
 
 let initialState: UsersPageType = {
-    users: [
-        // {
-        //     id: v1(),
-        //     followed: true,
-        //     fullName: 'Marat Abdulin',
-        //     photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Jean-Paul_Marat_portre.jpg',
-        //     status: 'student',
-        //     location: {city: 'Istanbul', country: 'Turkey'}
-        // },
-        // {
-        //     id: v1(),
-        //     followed: true,
-        //     fullName: 'Maslennikova Margarita',
-        //     photoUrl: 'https://uznayvse.ru/images/catalog/2022/3/margot-robbie_87.jpg',
-        //     status: 'the big director',
-        //     location: {city: 'Istanbul', country: 'Turkey'}
-        // },
-        // {
-        //     id: v1(),
-        //     followed: false,
-        //     fullName: 'Ivan Ivanov',
-        //     photoUrl: 'https://img.a.transfermarkt.technology/portrait/big/386762-1648907641.png?lm=1',
-        //     status: 'worker',
-        //     location: {city: 'Moscow', country: 'Russia'}
-        // },
-        // {
-        //     id: v1(),
-        //     followed: false,
-        //     fullName: 'Vasily Vasilev',
-        //     photoUrl: 'https://cdn.7days.ru/upload/images/d3c/1aa2fa814779c7841099dcaa99bb7.jpg',
-        //     status: 'worker',
-        //     location: {city: 'Lipetsk', country: 'Russia'}
-        // },
-    ],
+    users: [],
+    pageSize: 7,
+    totalUsersCount: 0,
+    currentPage: 1
 };
 
 const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
-        case "FOLLOW":
+        case 'FOLLOW':
             return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: false} : el)}
-        case "UNFOLLOW":
+        case 'UNFOLLOW':
             return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: true} : el)}
-        case "SET-USERS":
-            return {...state, users: [...state.users, ...action.users]}
+        case 'SET-USERS':
+            return {...state, users: action.users};
+        case 'SET-USERS-CURRENT-PAGE':
+            return {...state, currentPage: action.currentPage}
+        case 'SET-USERS-TOTAL-COUNT':
+            const totalUsersCountMax = action.totalCount > 200 ? 200 : action.totalCount
+            return {...state, totalUsersCount: totalUsersCountMax}
         default:
             return state;
     }
 }
 
-export type FollowActionType = ReturnType<typeof followAC>
-export type UnfollowActionType = ReturnType<typeof unfollowAC>
-export type SetUsersActionType = ReturnType<typeof setUsersAC>
+export const followAC = (userId: number) => ({type: 'FOLLOW', userId}) as const
+export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId}) as const
+export const setUsersAC = (users: Array<UserType>) => ({type: 'SET-USERS', users}) as const
+export const setUsersCurrentPageAC = (currentPage: number) => ({type: 'SET-USERS-CURRENT-PAGE', currentPage}) as const
+export const setUsersTotalCountAC = (totalCount: number) => ({type: 'SET-USERS-TOTAL-COUNT', totalCount}) as const
 
-export const followAC = (userId: number) => ({type: "FOLLOW", userId}) as const
-export const unfollowAC = (userId: number) => ({type: "UNFOLLOW", userId}) as const
-export const setUsersAC = (users: Array<UserType>) => ({type: "SET-USERS", users}) as const
 
 export default usersReducer;
