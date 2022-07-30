@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import s from './Users.module.css';
 import userDefaultPhoto from '../../assets/images/user-image.jpg';
-import {UsersContainerPropsType} from './UsersContainer';
+import {MapDispatchToPropsType, MapStateToPropsType} from './UsersContainer';
 
-type UsersPropsType = UsersContainerPropsType & {onPageClick: (page: number) => void}
+type UsersPropsType = Omit<MapStateToPropsType, 'isFetching'>
+& Omit<MapDispatchToPropsType, 'toggleIsFetching'> & {onPageClick: (page: number) => void}
 
 const Users: FC<UsersPropsType> = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);

@@ -4,7 +4,7 @@ import dialogsReducer, {AddMessageActionType, UpdateNewMessageActionType} from '
 import usersReducer, {
     FollowActionType,
     SetUsersActionType,
-    SetUsersCurrentPageType, SetUsersTotalCountType,
+    SetUsersCurrentPageType, SetUsersTotalCountType, ToggleIsFetchingType,
     UnfollowActionType
 } from './users-reducer';
 import sidebarReducer from './sidebar-reducer';
@@ -18,7 +18,8 @@ export type ActionsTypes =
     UnfollowActionType |
     SetUsersActionType |
     SetUsersCurrentPageType |
-    SetUsersTotalCountType
+    SetUsersTotalCountType |
+    ToggleIsFetchingType
 
 export let rootReducer = combineReducers({
     profilePage: profileReducer,
