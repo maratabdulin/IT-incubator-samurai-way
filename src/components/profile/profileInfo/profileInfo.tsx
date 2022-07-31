@@ -16,8 +16,10 @@ const ProfileInfo = (props: ProfileInfoStateType) => {
                 />
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.small} alt=""/>
-                ava + description
+                <img src={props.profile.photos.large} alt=""/>
+                <h4>{props.profile.fullName}</h4>
+                <p>{props.profile.aboutMe}</p>
+                <p>{props.profile.lookingForAJobDescription}</p>
             </div>
         </div>
     );
