@@ -2,9 +2,10 @@ import React, {FC} from 'react';
 import s from './Users.module.css';
 import userDefaultPhoto from '../../assets/images/user-image.jpg';
 import {MapDispatchToPropsType, MapStateToPropsType} from './UsersContainer';
+import {NavLink} from 'react-router-dom';
 
 type UsersPropsType = Omit<MapStateToPropsType, 'isFetching'>
-& Omit<MapDispatchToPropsType, 'toggleIsFetching'> & {onPageClick: (page: number) => void}
+    & Omit<MapDispatchToPropsType, 'toggleIsFetching'> & { onPageClick: (page: number) => void }
 
 const Users: FC<UsersPropsType> = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -19,7 +20,7 @@ const Users: FC<UsersPropsType> = (props) => {
                 {pages.map(page => {
                     return <span
                         className={props.currentPage === page ? s.selectedPage : ''}
-                        onClick={()=>props.onPageClick(page)}
+                        onClick={() => props.onPageClick(page)}
                     >{page}</span>
                 })}
             </div>
@@ -28,7 +29,9 @@ const Users: FC<UsersPropsType> = (props) => {
                     <div key={el.id}>
                         <div>
                             <div>
-                                <img className={s.avatarImage} src={el.photos.large !== null ? el.photos.small : userDefaultPhoto} alt="Avatar photo"/>
+                                <NavLink to={'/profile/' + el.id}>
+                                    <img className={s.avatarImage} src={el.photos.large !== null ? el.photos.small : userDefaultPhoto} alt="Avatar photo"/>
+                                </NavLink>
                             </div>
                             <div>
                                 {el.followed
