@@ -14,6 +14,7 @@ import usersReducer, {
     UnfollowActionType
 } from './users-reducer';
 import sidebarReducer from './sidebar-reducer';
+import authReducer, {SetUserDataType} from './auth-reducer';
 
 export type ActionsTypes =
     AddPostActionType |
@@ -26,13 +27,15 @@ export type ActionsTypes =
     SetUsersCurrentPageType |
     SetUsersTotalCountType |
     ToggleIsFetchingType |
-    SetUserProfileActionType
+    SetUserProfileActionType |
+    SetUserDataType
 
 export let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     sidebarPage: sidebarReducer,
+    auth: authReducer,
 })
 
 export const store = createStore(rootReducer);
