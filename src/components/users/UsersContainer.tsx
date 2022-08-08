@@ -5,6 +5,7 @@ import {
     setUsers,
     setUsersCurrentPage,
     setUsersTotalCount,
+    toggleFollowingProgress,
     toggleIsFetching,
     unfollow,
     UserType
@@ -20,6 +21,7 @@ export type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
 }
 export type MapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -28,6 +30,7 @@ export type MapDispatchToPropsType = {
     setUsersCurrentPage: (currentPage: number) => void
     setUsersTotalCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
 }
 export type UsersContainerPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -66,6 +69,8 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
                 setUsersCurrentPage={this.props.setUsersCurrentPage}
                 setUsersTotalCount={this.props.setUsersTotalCount}
                 onPageClick={this.onChangeClick}
+                followingInProgress={this.props.followingInProgress}
+                toggleFollowingProgress={this.props.toggleFollowingProgress}
             />
         </>
     }
@@ -77,9 +82,19 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress,
     }
 }
 
 export default connect(mapStateToProps,
-    {follow, unfollow, setUsers, setUsersCurrentPage, setUsersTotalCount, toggleIsFetching})(UsersContainer)
+    {
+        follow,
+        unfollow,
+        setUsers,
+        setUsersCurrentPage,
+        setUsersTotalCount,
+        toggleIsFetching,
+        toggleFollowingProgress
+    }
+)(UsersContainer)

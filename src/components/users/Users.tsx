@@ -37,20 +37,26 @@ const Users: FC<UsersPropsType> = (props) => {
                             </div>
                             <div>
                                 {el.followed
-                                    ? <button onClick={() => {
+                                    ?
+                                    <button disabled={props.followingInProgress.some(id => id === el.id)} onClick={() => {
+                                        props.toggleFollowingProgress(true, el.id)
                                         followUnfollowAPI.unfollow(el.id)
                                             .then(data => {
                                                 if (data.resultCode === 0) {
                                                     props.unfollow(el.id)
                                                 }
+                                                props.toggleFollowingProgress(false, el.id)
+
                                             });
                                     }}>Unfollow</button>
-                                    : <button onClick={() => {
+                                    : <button disabled={props.followingInProgress.some(id => id === el.id)} onClick={() => {
+                                        props.toggleFollowingProgress(true, el.id)
                                         followUnfollowAPI.follow(el.id)
                                             .then(data => {
                                                 if (data.resultCode === 0) {
                                                     props.follow(el.id)
                                                 }
+                                                props.toggleFollowingProgress(false, el.id)
                                             });
                                     }}>Follow</button>}
                             </div>

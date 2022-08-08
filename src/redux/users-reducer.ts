@@ -14,6 +14,7 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
 }
 export type FollowActionType = ReturnType<typeof follow>
 export type UnfollowActionType = ReturnType<typeof unfollow>
@@ -21,13 +22,15 @@ export type SetUsersActionType = ReturnType<typeof setUsers>
 export type SetUsersCurrentPageType = ReturnType<typeof setUsersCurrentPage>
 export type SetUsersTotalCountType = ReturnType<typeof setUsersTotalCount>
 export type ToggleIsFetchingType = ReturnType<typeof toggleIsFetching>
+export type ToggleIsFollowingProgressType = ReturnType<typeof toggleFollowingProgress>
 
 let initialState: UsersPageType = {
     users: [],
     pageSize: 7,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 };
 
 const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes) => {
@@ -45,6 +48,13 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes)
             return {...state, totalUsersCount: totalUsersCountMax}
         case 'TOGGLE-IS-FETCHING':
             return {...state, isFetching: action.isFetching}
+        case 'TOGGLE-FOLLOWING-PROGRESS':
+            return {
+                ...state,
+                followingInProgress: action.followingInProgress
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state;
     }
@@ -56,5 +66,10 @@ export const setUsers = (users: Array<UserType>) => ({type: 'SET-USERS', users})
 export const setUsersCurrentPage = (currentPage: number) => ({type: 'SET-USERS-CURRENT-PAGE', currentPage}) as const
 export const setUsersTotalCount = (totalCount: number) => ({type: 'SET-USERS-TOTAL-COUNT', totalCount}) as const
 export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching}) as const
+export const toggleFollowingProgress = (followingInProgress: boolean, userId: number) => ({
+    type: 'TOGGLE-FOLLOWING-PROGRESS',
+    followingInProgress,
+    userId
+}) as const
 
 export default usersReducer;

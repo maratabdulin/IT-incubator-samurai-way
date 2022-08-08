@@ -10,7 +10,7 @@ import usersReducer, {
     SetUsersActionType,
     SetUsersCurrentPageType,
     SetUsersTotalCountType,
-    ToggleIsFetchingType,
+    ToggleIsFetchingType, ToggleIsFollowingProgressType,
     UnfollowActionType
 } from './users-reducer';
 import sidebarReducer from './sidebar-reducer';
@@ -28,7 +28,8 @@ export type ActionsTypes =
     SetUsersTotalCountType |
     ToggleIsFetchingType |
     SetUserProfileActionType |
-    SetUserDataType
+    SetUserDataType |
+    ToggleIsFollowingProgressType
 
 export let rootReducer = combineReducers({
     profilePage: profileReducer,
