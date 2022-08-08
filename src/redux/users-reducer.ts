@@ -33,9 +33,9 @@ let initialState: UsersPageType = {
 const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case 'FOLLOW':
-            return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: false} : el)}
-        case 'UNFOLLOW':
             return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: true} : el)}
+        case 'UNFOLLOW':
+            return {...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: false} : el)}
         case 'SET-USERS':
             return {...state, users: action.users};
         case 'SET-USERS-CURRENT-PAGE':
