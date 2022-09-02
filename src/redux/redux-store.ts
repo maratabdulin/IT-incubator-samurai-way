@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
 import profileReducer, {
     AddPostActionType,
     SetUserProfileActionType,
@@ -15,6 +15,7 @@ import usersReducer, {
 } from './users-reducer';
 import sidebarReducer from './sidebar-reducer';
 import authReducer, {SetUserDataType} from './auth-reducer';
+import thunk from 'redux-thunk';
 
 export type ActionsTypes =
     AddPostActionType |
@@ -39,7 +40,7 @@ export let rootReducer = combineReducers({
     auth: authReducer,
 })
 
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export type AppStateType = ReturnType<typeof store.getState>;
 

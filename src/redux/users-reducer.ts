@@ -1,4 +1,6 @@
 import {ActionsTypes} from './redux-store';
+import {followUnfollowAPI, usersAPI} from '../api/api';
+import {Dispatch} from 'redux';
 
 export type UserType = {
     id: number
@@ -16,8 +18,8 @@ export type UsersPageType = {
     isFetching: boolean
     followingInProgress: number[]
 }
-export type FollowActionType = ReturnType<typeof follow>
-export type UnfollowActionType = ReturnType<typeof unfollow>
+export type FollowActionType = ReturnType<typeof followSuccess>
+export type UnfollowActionType = ReturnType<typeof unfollowSuccess>
 export type SetUsersActionType = ReturnType<typeof setUsers>
 export type SetUsersCurrentPageType = ReturnType<typeof setUsersCurrentPage>
 export type SetUsersTotalCountType = ReturnType<typeof setUsersTotalCount>
@@ -60,8 +62,8 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes)
     }
 }
 
-export const follow = (userId: number) => ({type: 'FOLLOW', userId}) as const
-export const unfollow = (userId: number) => ({type: 'UNFOLLOW', userId}) as const
+export const followSuccess = (userId: number) => ({type: 'FOLLOW', userId}) as const
+export const unfollowSuccess = (userId: number) => ({type: 'UNFOLLOW', userId}) as const
 export const setUsers = (users: Array<UserType>) => ({type: 'SET-USERS', users}) as const
 export const setUsersCurrentPage = (currentPage: number) => ({type: 'SET-USERS-CURRENT-PAGE', currentPage}) as const
 export const setUsersTotalCount = (totalCount: number) => ({type: 'SET-USERS-TOTAL-COUNT', totalCount}) as const
@@ -71,5 +73,43 @@ export const toggleFollowingProgress = (followingInProgress: boolean, userId: nu
     followingInProgress,
     userId
 }) as const
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch:Dispatch) => {
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setUsersTotalCount(data.totalCount));
+            });
+    }
+}
+
+export const unfollow = (userId: number) => {
+    return (dispatch:Dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        followUnfollowAPI.unfollow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollowSuccess(userId))
+                }
+                dispatch(toggleFollowingProgress(false, userId))
+            });
+    }
+}
+
+export const follow = (userId: number) => {
+    return (dispatch:Dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        followUnfollowAPI.follow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
+                dispatch(toggleFollowingProgress(false, userId))
+            });
+    }
+}
 
 export default usersReducer;
