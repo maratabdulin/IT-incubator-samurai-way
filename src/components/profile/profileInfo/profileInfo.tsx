@@ -1,6 +1,7 @@
 import React from 'react';
 import s from "../styles.module.css";
 import {UserProfileType} from '../../../redux/profile-reducer';
+import ProfileStatus from './ProfileStatus';
 
 type ProfileInfoStateType = {
     profile: UserProfileType
@@ -9,14 +10,15 @@ type ProfileInfoStateType = {
 const ProfileInfo = (props: ProfileInfoStateType) => {
     return (
         <div>
-            <div>
-                <img className={s.image}
-                     src="https://cdn.statically.io/img/codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg"
-                     alt="image"
-                />
-            </div>
+            {/*<div>*/}
+            {/*    <img className={s.image}*/}
+            {/*         src="https://cdn.statically.io/img/codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg"*/}
+            {/*         alt="image"*/}
+            {/*    />*/}
+            {/*</div>*/}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large} alt=""/>
+                <ProfileStatus status={'hello from Istanbul'}/>
                 <h4>{props.profile.fullName}</h4>
                 <p>{props.profile.aboutMe}</p>
                 <p>{props.profile.lookingForAJobDescription}</p>
