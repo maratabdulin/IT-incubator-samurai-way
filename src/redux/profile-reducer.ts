@@ -1,7 +1,7 @@
 import {ActionsTypes} from './redux-store';
 import {v1} from 'uuid';
 import {Dispatch} from 'redux';
-import {profileAPI, usersAPI} from '../api/api';
+import {profileAPI} from '../api/api';
 
 export type PostType = {
     post: string

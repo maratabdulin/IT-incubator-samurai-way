@@ -16,6 +16,8 @@ import usersReducer, {
 import sidebarReducer from './sidebar-reducer';
 import authReducer, {SetUserDataType} from './auth-reducer';
 import thunk from 'redux-thunk';
+import {reducer as formReducer} from 'redux-form'
+
 
 export type ActionsTypes =
     AddPostActionType |
@@ -39,6 +41,7 @@ export let rootReducer = combineReducers({
     usersPage: usersReducer,
     sidebarPage: sidebarReducer,
     auth: authReducer,
+    form: formReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

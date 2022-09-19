@@ -10,8 +10,6 @@ type ProfileInfoStateType = {
 }
 
 const ProfileInfo = (props: ProfileInfoStateType) => {
-    console.log(props.status)
-
     return (
         <div>
             <div className={s.descriptionBlock}>
