@@ -2,7 +2,7 @@ import React from 'react';
 import s from './styles.module.css';
 import Profile from './Profile';
 import {AppStateType} from '../../redux/redux-store';
-import {getUserProfile, UserProfileType} from '../../redux/profile-reducer';
+import {getStatus, getUserProfile, updateStatus, UserProfileType} from '../../redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
@@ -13,9 +13,12 @@ type PathParamsType = {
 }
 type MapStateToPropsType = {
     profile: UserProfileType
+    status: string
 }
 type MapDispatchToPropsType = {
     getUserProfile: (userId: string) => void
+    getStatus: (userId: string) => void
+    updateStatus: (status: string) => void
 }
 
 export type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -31,11 +34,19 @@ class ProfileContainer extends React.Component<PropsType> {
             userId = '24885';
         }
         this.props.getUserProfile(userId);
+        this.props.getStatus(userId);
+        console.log(this.props.profile)
+        console.log(this.props.status)
     }
 
     render() {
         return (<div className={s.profile}>
-            <Profile {...this.props} profile={this.props.profile}/>
+            <Profile
+                {...this.props}
+                profile={this.props.profile}
+                status={this.props.status}
+                updateStatus={this.props.updateStatus}
+            />
         </div>)
     }
 }
@@ -44,11 +55,12 @@ class ProfileContainer extends React.Component<PropsType> {
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile}),
+    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

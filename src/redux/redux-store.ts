@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import profileReducer, {
-    AddPostActionType,
+    AddPostActionType, SetStatusActionType,
     SetUserProfileActionType,
     UpdateNewPostTextActionType
 } from './profile-reducer';
@@ -30,7 +30,8 @@ export type ActionsTypes =
     ToggleIsFetchingType |
     SetUserProfileActionType |
     SetUserDataType |
-    ToggleIsFollowingProgressType
+    ToggleIsFollowingProgressType |
+    SetStatusActionType
 
 export let rootReducer = combineReducers({
     profilePage: profileReducer,

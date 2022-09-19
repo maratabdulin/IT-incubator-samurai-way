@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {ChangeEvent, LegacyRef} from 'react';
 
 type ProfileStatusType = {
     status: string
+    updateStatus: (status: string) => void
 }
 
 class ProfileStatus extends React.Component<ProfileStatusType> {
+    statusInputRef: LegacyRef<HTMLInputElement> = React.createRef()
 
     state = {
         editMode: false,
+        status: this.props.status
     }
 
     activateEditMode = () => {
@@ -15,20 +18,31 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
     }
     deactivateEditMode = () => {
         this.setState({editMode: false})
+        this.props.updateStatus(this.state.status)
+    }
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({status: e.currentTarget.value})
     }
 
-
     render() {
+
+        console.log(this.props.status)
+
         return (
             <>
                 {!this.state.editMode &&
                     <div>
-                        <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
+                        <span onDoubleClick={this.activateEditMode}>{this.props.status || 'no status!'}</span>
                     </div>
                 }
                 {this.state.editMode &&
                     <div>
-                        <input autoFocus={true} onBlur={this.deactivateEditMode} value={this.props.status}/>
+                        <input
+                            autoFocus={true}
+                            onBlur={this.deactivateEditMode}
+                            value={this.state.status}
+                            onChange={this.onStatusChange}
+                        />
                     </div>
                 }
             </>

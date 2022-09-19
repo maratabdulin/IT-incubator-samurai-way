@@ -5,20 +5,19 @@ import ProfileStatus from './ProfileStatus';
 
 type ProfileInfoStateType = {
     profile: UserProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
 const ProfileInfo = (props: ProfileInfoStateType) => {
+    console.log(props.status)
+
     return (
         <div>
-            {/*<div>*/}
-            {/*    <img className={s.image}*/}
-            {/*         src="https://cdn.statically.io/img/codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg"*/}
-            {/*         alt="image"*/}
-            {/*    />*/}
-            {/*</div>*/}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large} alt=""/>
-                <ProfileStatus status={'hello from Istanbul'}/>
+                <ProfileStatus
+                    status={props.status} updateStatus={props.updateStatus}/>
                 <h4>{props.profile.fullName}</h4>
                 <p>{props.profile.aboutMe}</p>
                 <p>{props.profile.lookingForAJobDescription}</p>

@@ -15,8 +15,17 @@ export const usersAPI = {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
     },
+}
+
+export const profileAPI = {
     getProfile(userId: string) {
         return instance.get(`profile/${userId}`)
+    },
+    getStatus(userId: string) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status: string) {
+      return instance.put(`profile/status`, {status: status})
     }
 }
 
