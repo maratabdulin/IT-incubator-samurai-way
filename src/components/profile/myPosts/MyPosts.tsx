@@ -3,31 +3,20 @@ import s from './styles.module.css';
 import Post from "../post/Post";
 import {PostType} from "../../../redux/profile-reducer";
 import {MyPostsPropsType} from "./MyPostsContainer";
+import {NewPostFormRedux, NewPostPropsType} from './NewPostForm';
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let postsElements = props.posts
         .map((p: PostType) => <Post post={p.post} likesCount={p.likesCount} id={p.id} key={p.id}/>);
 
-    const newPostElement = React.createRef<HTMLTextAreaElement>();
-
-    const onAddPost = () => {
-        props.addPost();
-    }
-
-    let onPostChange = () => {
-        let text = newPostElement.current?.value;
-        text && props.updateNewPostText(text)
+    const addPost = (values: NewPostPropsType) => {
+        props.addPost(values.newPostBody);
     }
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
-            <div>
-                <div>
-                    <textarea ref={newPostElement} value={props.newPostText} onChange={onPostChange}/>
-                </div>
-                <button onClick={onAddPost}>Add Post</button>
-            </div>
+            <NewPostFormRedux onSubmit={addPost}/>
             <div className={s.posts}>
                 {postsElements}
             </div>

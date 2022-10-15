@@ -1,0 +1,10 @@
+
+.formControl.error div input,
+.formControl.error div textarea {
+  border: 2px solid tomato;
+}
+
+.errorMessage {
+  color: tomato;
+  font-size: 12px;
+}

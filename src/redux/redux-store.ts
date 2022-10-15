@@ -2,9 +2,8 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import profileReducer, {
     AddPostActionType, SetStatusActionType,
     SetUserProfileActionType,
-    UpdateNewPostTextActionType
 } from './profile-reducer';
-import dialogsReducer, {AddMessageActionType, UpdateNewMessageActionType} from './dialogs-reducer';
+import dialogsReducer, {AddMessageActionType} from './dialogs-reducer';
 import usersReducer, {
     FollowActionType,
     SetUsersActionType,
@@ -21,9 +20,7 @@ import {reducer as formReducer} from 'redux-form'
 
 export type ActionsTypes =
     AddPostActionType |
-    UpdateNewPostTextActionType |
     AddMessageActionType |
-    UpdateNewMessageActionType |
     FollowActionType |
     UnfollowActionType |
     SetUsersActionType |
