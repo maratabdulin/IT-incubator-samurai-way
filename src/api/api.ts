@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 
 const instance = axios.create(
     {
@@ -9,6 +9,21 @@ const instance = axios.create(
         }
     }
 )
+
+type LoginPayloadType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+
+type LoginResponseType = {
+    data: {
+        userId: number
+    }
+    messages: any[]
+    fieldsErrors: any[]
+    resultCode: number
+}
 
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
@@ -25,7 +40,7 @@ export const profileAPI = {
         return instance.get(`profile/status/${userId}`)
     },
     updateStatus(status: string) {
-      return instance.put(`profile/status`, {status: status})
+        return instance.put(`profile/status`, {status: status})
     }
 }
 
@@ -43,6 +58,16 @@ export const followUnfollowAPI = {
 export const authAPI = {
     me() {
         return instance.get(`auth/me`)
+    },
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<'', AxiosResponse<LoginResponseType>, LoginPayloadType>(`auth/login`, {
+            email,
+            password,
+            rememberMe
+        })
+    },
+    logout() {
+        return instance.delete('auth/login')
     }
 }
 
