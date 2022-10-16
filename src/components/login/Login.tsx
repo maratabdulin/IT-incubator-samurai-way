@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {login} from '../../redux/auth-reducer';
 import {Redirect} from 'react-router-dom';
 import {AppStateType} from '../../redux/redux-store';
-import {UserProfileType} from '../../redux/profile-reducer';
+import style from './../commons/formsControls/FormsControls.module.css'
 
 type FormDataType = {
     email: string
@@ -19,8 +19,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    login: (userId: string) => void
-
+    login: (email: string, password: string, rememberMe: boolean) => void
 }
 
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -40,14 +39,19 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <button type="submit">submit</button>
             </div>
-            <div></div>
+            {
+                props.error &&
+                <div className={style.formSummaryError}>
+                    {props.error}
+                </div>
+            }
         </form>
     );
 };
 
 const LoginReduxForm = reduxForm<FormDataType>({form: 'Login'})(LoginForm)
 
-const Login = (props: any) => {
+const Login = (props: OwnPropsType) => {
     const onSubmit = (formData: FormDataType) => {
         console.log(formData)
         props.login(formData.email, formData.password, formData.rememberMe)

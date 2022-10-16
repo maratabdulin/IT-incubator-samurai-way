@@ -8,3 +8,13 @@
   color: tomato;
   font-size: 12px;
 }
+
+.formSummaryError {
+  width: fit-content;
+  margin: 5;
+  display: flex;
+  padding: 5px;
+  border: 2px solid tomato;
+  color: tomato;
+  font-size: 14px;
+}
