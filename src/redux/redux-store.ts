@@ -14,9 +14,8 @@ import usersReducer, {
 } from './users-reducer';
 import sidebarReducer from './sidebar-reducer';
 import authReducer, {SetUserDataType} from './auth-reducer';
-import thunk from 'redux-thunk';
-import {reducer as formReducer} from 'redux-form'
-
+import thunk, {ThunkAction} from 'redux-thunk';
+import {FormAction, reducer as formReducer} from 'redux-form'
 
 export type ActionsTypes =
     AddPostActionType |
@@ -44,6 +43,8 @@ export let rootReducer = combineReducers({
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export type AppStateType = ReturnType<typeof store.getState>;
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes | FormAction>
 
 // @ts-ignore
 window.store = store
