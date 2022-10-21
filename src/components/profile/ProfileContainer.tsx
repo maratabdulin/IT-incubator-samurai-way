@@ -31,11 +31,13 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 
 class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
-
         let userId = this.props.match.params.userId
 
         if (!userId) {
             userId = this.props.authorizedUserId;
+            if (!userId) {
+                this.props.history.push('/login');
+            }
         }
 
         this.props.getUserProfile(userId);
@@ -54,7 +56,6 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 }
 
-
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
@@ -67,5 +68,4 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
     withRouter,
-    withAuthRedirect
-)(ProfileContainer)
+    withAuthRedirect)(ProfileContainer)

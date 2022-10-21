@@ -3,18 +3,18 @@ import {authAPI} from '../api/api';
 import {stopSubmit} from 'redux-form';
 
 type AuthType = {
-    id: number | null
-    email: string | null
-    login: string | null
+    id: number
+    email: string
+    login: string
     isAuth: boolean
 }
 
 export type SetUserDataType = ReturnType<typeof setAuthUserData>
 
 let initialState: AuthType = {
-    id: null,
-    email: null,
-    login: null,
+    id: 0,
+    email: '',
+    login: '',
     isAuth: false,
 };
 
@@ -31,7 +31,7 @@ const authReducer = (state: AuthType = initialState, action: ActionsTypes) => {
     }
 }
 
-export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => (
+export const setAuthUserData = (id: number, email: string, login: string, isAuth: boolean) => (
     {
         type: 'SET-USERS-DATA',
         data: {id, email, login, isAuth}
@@ -39,7 +39,7 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
 
 export const getAuthUserData = (): AppThunk =>
     dispatch => {
-        authAPI.me().then(response => {
+        return authAPI.me().then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data;
                 dispatch(setAuthUserData(id, email, login, true))
@@ -48,7 +48,7 @@ export const getAuthUserData = (): AppThunk =>
     }
 
 export const login = (email: string, password: string, rememberMe: boolean): AppThunk =>
-    (dispatch)=> {
+    (dispatch) => {
         authAPI.login(email, password, rememberMe).then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
@@ -63,7 +63,7 @@ export const login = (email: string, password: string, rememberMe: boolean): App
 export const logout = (): AppThunk => dispatch => {
     authAPI.logout().then(response => {
         if (response.data.resultCode === 0) {
-            dispatch(setAuthUserData(null, null, null, false))
+            dispatch(setAuthUserData(0, '', '', false))
         }
     });
 }

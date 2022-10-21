@@ -14,6 +14,7 @@ import usersReducer, {
 } from './users-reducer';
 import sidebarReducer from './sidebar-reducer';
 import authReducer, {SetUserDataType} from './auth-reducer';
+import appReducer, {InitializedSuccessType} from './app-reducer';
 import thunk, {ThunkAction} from 'redux-thunk';
 import {FormAction, reducer as formReducer} from 'redux-form'
 
@@ -29,7 +30,8 @@ export type ActionsTypes =
     SetUserProfileActionType |
     SetUserDataType |
     ToggleIsFollowingProgressType |
-    SetStatusActionType
+    SetStatusActionType |
+    InitializedSuccessType
 
 export let rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -37,6 +39,7 @@ export let rootReducer = combineReducers({
     usersPage: usersReducer,
     sidebarPage: sidebarReducer,
     auth: authReducer,
+    app: appReducer,
     form: formReducer
 })
 
